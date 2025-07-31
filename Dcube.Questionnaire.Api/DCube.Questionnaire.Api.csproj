@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>58b25551-f976-4d3e-9808-bddb64db5401</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="12.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="9.0.5" />
+    <PackageReference Include="Microsoft.AspNetCore.OData" Version="9.3.1" />
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.5" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.22.1-Preview.1" />
+    <PackageReference Include="Serilog.AspNetCore" Version="9.0.0" />
+    <PackageReference Include="Serilog.Extensions.Hosting" Version="9.0.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="8.1.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Dcube.Questionnaire.Api.ServiceDefaults\DCube.Questionnaire.Api.ServiceDefaults.csproj" />
+    <ProjectReference Include="..\Dcube.Questionnaire.Business\DCube.Questionnaire.Business.csproj" />
+    <ProjectReference Include="..\Dcube.Questionnaire.Model\DCube.Questionnaire.Model.csproj" />
+    <ProjectReference Include="..\Dcube.Questionnaire.Repository\DCube.Questionnaire.Repository.csproj" />
+  </ItemGroup>
+
+</Project>

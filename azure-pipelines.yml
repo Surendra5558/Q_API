@@ -1,0 +1,53 @@
+trigger:
+  - main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  buildConfiguration: 'Release'
+
+steps:
+- checkout: self
+
+- task: UseDotNet@2
+  displayName: 'Install .NET 9 SDK'
+  inputs:
+    version: 9.x
+    performMultiLevelLookup: true
+    includePreviewVersions: true
+
+- script: dotnet restore
+  displayName: 'Restore NuGet Packages'
+
+- script: dotnet build --configuration $(buildConfiguration)
+  displayName: 'dotnet build $(buildConfiguration)'
+
+- script: |
+    echo "Listing all .csproj files:"
+    find . -name "*.csproj"
+  displayName: 'Debug: List .csproj Files'
+
+- task: DotNetCoreCLI@2
+  displayName : 'Publish WebApi'
+  inputs:
+    command: 'publish'
+    publishWebProjects: false
+    projects: '**/DCube.Questionnaire.Api.csproj'  # Correct casing
+    arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)'
+    zipAfterPublish: true
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Artifact - Questionnaire_Api'
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'  # Fixed typo
+    ArtifactName: 'Questionnaire_Api'
+    publishLocation: 'Container'
+
+- task: AzureWebApp@1
+  displayName: 'Deploy to Linux App Service'
+  inputs:
+    azureSubscription: 'DCube Data (9b71abbf-b75a-4034-badf-1dd78b851812)'
+    appType: 'webAppLinux'
+    appName: 'Questionnaire-API'
+    package: '$(Build.ArtifactStagingDirectory)/*.zip'
