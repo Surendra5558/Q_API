@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: ui-container
-        image: us-central1-docker.pkg.dev/konaai-dev-462909/q-test/ui:Latest
+        image: us-central1-docker.pkg.dev/konaai-dev-462909/q-test/API:Latest
         ports:
         - containerPort: 80
         resources:
