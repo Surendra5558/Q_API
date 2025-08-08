@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: ui-deployment
+  name: api-deployment
   labels:
     app: ui-app
 
@@ -9,15 +9,15 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: ui-app
+      app: api-app
   template:
     metadata:
       labels:
-        app: ui-app
+        app: api-app
     spec:
       containers:
       - name: ui-container
-        image: us-central1-docker.pkg.dev/konaai-dev-462909/q-test/API:Latest
+        image: us-central1-docker.pkg.dev/konaai-dev-462909/q-test/api:Latest
         ports:
         - containerPort: 80
         resources:
@@ -31,11 +31,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: ui-service
+  name: api-service
 spec:
   selector:
-    app: ui-app
+    app: api-app
   ports:
     - port: 80
       targetPort: 80
-  type: LoadBalancer 
+  type: ClusterIP 
