@@ -17,7 +17,8 @@ COPY --from=build /app/publish .
 EXPOSE 8080
 
 # Start the application
-ENTRYPOINT ["dotnet", "YourAppName.dll"]
+ENTRYPOINT ["dotnet", "DCube.Questionnaire.Api.dll"]
+
 
 
 
